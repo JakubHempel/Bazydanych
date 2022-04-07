@@ -9,8 +9,8 @@ CREATE SCHEMA rozliczenia;
 -- tworzenie tabeli w schemacie
 CREATE TABLE rozliczenia.pracownicy(
 	id_pracownika CHAR(6) PRIMARY KEY NOT NULL,
-	imie NVARCHAR(30) NOT NULL,
-	nazwisko NVARCHAR(30) NOT NULL,
+	imie NVARCHAR(40) NOT NULL,
+	nazwisko NVARCHAR(40) NOT NULL,
 	adres NVARCHAR(50) NOT NULL,
 	telefon CHAR(12)
 );
@@ -24,7 +24,7 @@ CREATE TABLE rozliczenia.godziny(
 
 CREATE TABLE rozliczenia.pensje(
 	id_pensji CHAR(6) PRIMARY KEY NOT NULL,
-	stanowisko NVARCHAR(30) NOT NULL,
+	stanowisko NVARCHAR(60) NOT NULL,
 	kwota SMALLMONEY NOT NULL,
 	id_premii CHAR(6)
 );
@@ -122,7 +122,7 @@ SELECT data, DATEPART(dw, data) AS dzien_tygodnia, DATEPART(month, data) AS mies
 FROM rozliczenia.godziny;
 
 -- zmiana nazwy kolumny
-EXEC sp_rename 'rozliczenia.pensje.kwota', 'kwota_brutto';
+EXEC sp_rename'rozliczenia.pensje.kwota', 'kwota_brutto';
 
 -- dodanie kolumny kwota_netto 
 ALTER TABLE rozliczenia.pensje
@@ -132,3 +132,5 @@ SELECT * FROM rozliczenia.pensje;
 
 -- ALTER TABLE rozliczenia.pensje
 -- DROP COLUMN kwota_netto;
+
+-- ALTER TABLE rozliczenia.pensje ALTER COLUMN kwota_netto SMALLMONEY;
