@@ -2,15 +2,16 @@
 --    w nawiasie (+48)
 UPDATE ksiegowosc.pracownicy
 SET telefon = '(+48)'||telefon;
-WHERE telefon IS NOT NULL;
 
 SELECT telefon FROM ksiegowosc.pracownicy;
 
 -- b) Zmodyfikuj atrybut telefon w tabeli pracownicy tak, aby numer oddzielony był myślnikami wg 
 --    wzoru: ‘555-222-333’ 
 UPDATE ksiegowosc.pracownicy
-SET telefon = SUBSTRING(telefon from 1 for 5) || ' ' || SUBSTRING(telefon from 7 for 3) || '-' || SUBSTRING(telefon from 10 for 3) || '-' || SUBSTRING(telefon from 12 for 3);
-WHERE telefon IS NOT NULL;
+SET telefon = SUBSTRING(telefon from 1 for 5) || ' ' || 
+			  SUBSTRING(telefon from 7 for 3) || '-' || 
+			  SUBSTRING(telefon from 10 for 3) || '-' || 
+			  SUBSTRING(telefon from 12 for 3);
 
 SELECT telefon FROM ksiegowosc.pracownicy;
 
