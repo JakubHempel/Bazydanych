@@ -1,0 +1,7 @@
+Normalizacja - polega na normalizowaniu tabel w bazie relacyjnej.
+
+1. Postać normalna:
+	a) 1NF --> wszystkie dane w tabeli muszą być atomowe, np. Adres --> Ulica, KodPocztowy, Miejscowość, itd.
+	b) 2NF --> 1NF + wszystkie niekluczowe kolumny zależą od klucza głównego
+	c) 3NF --> 2NF + żadna kolumna niekluczowa nie zależy od kolumny innej niz klucz główny, nie występują zależności przechodnie
+	d) Boyce'a-Codda (BCNF) --> tylko z nietrywialnych zależności wynika, że pewnien nadklucz wyznacza funkcyjnie inny atrybut; w BCNF nie 				          można przewidzieć jednych wartości kolumn w oparciu o inne
