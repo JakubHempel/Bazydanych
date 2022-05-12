@@ -2,18 +2,20 @@
 --    w nawiasie (+48)
 UPDATE ksiegowosc.pracownicy
 SET telefon = '(+48)'||telefon;
+WHERE telefon IS NOT NULL;
 
 SELECT telefon FROM ksiegowosc.pracownicy;
 
 -- b) Zmodyfikuj atrybut telefon w tabeli pracownicy tak, aby numer oddzielony był myślnikami wg 
 --    wzoru: ‘555-222-333’ 
 UPDATE ksiegowosc.pracownicy
-SET telefon = SUBSTRING(telefon from 1 for 5) || ' ' || SUBSTRING(telefon from 6 for 3) || '-' || SUBSTRING(telefon from 9 for 3) || '-' || SUBSTRING(telefon from 11 for 3);
+SET telefon = SUBSTRING(telefon from 1 for 5) || ' ' || SUBSTRING(telefon from 7 for 3) || '-' || SUBSTRING(telefon from 10 for 3) || '-' || SUBSTRING(telefon from 12 for 3);
+WHERE telefon IS NOT NULL;
 
 SELECT telefon FROM ksiegowosc.pracownicy;
 
 -- c) Wyświetl dane pracownika, którego nazwisko jest najdłuższe, używając dużych liter
-SELECT id_pracownika, UPPER(imie), UPPER(nazwisko), UPPER(adres), telefon 
+SELECT id_pracownika, UPPER(imie) AS imie, UPPER(nazwisko) AS nazwisko, UPPER(adres) AS adres, telefon 
 FROM ksiegowosc.pracownicy
 WHERE LENGTH(nazwisko) = (SELECT MAX(LENGTH(nazwisko))
 						 FROM ksiegowosc.pracownicy);
@@ -52,13 +54,13 @@ SET liczba_nadgodzin =
 CASE 
 	WHEN liczba_godzin > 160 THEN (liczba_godzin - 160)
 	WHEN liczba_godzin <= 160 THEN 0 
-END
+END;
 
 SELECT 
 	'Pracownik ' || pr.imie || ' ' || pr.nazwisko || ', w dniu ' || w.data || 
-	' otrzymał pensję całkowitą na kwotę ' || (pe.kwota+pm.kwota+CAST((g.liczba_nadgodzin*20) AS MONEY)) || 
+	' otrzymał pensję całkowitą na kwotę ' || (pe.kwota+pm.kwota+CAST((g.liczba_nadgodzin*30) AS MONEY)) || 
 	', gdzie wynagrodzenie zasadnicze wynosiło: ' || pe.kwota || 
-	', premia: ' || pm.kwota || ', nadgodziny: ' || (g.liczba_nadgodzin*20) || ' zł' AS raport
+	', premia: ' || pm.kwota || ', nadgodziny: ' || (g.liczba_nadgodzin*30) || ' zł' AS raport
 FROM ksiegowosc.pracownicy AS pr
 INNER JOIN ksiegowosc.wynagrodzenie AS w
 ON pr.id_pracownika = w.id_pracownika
